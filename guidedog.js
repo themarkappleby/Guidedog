@@ -7,6 +7,7 @@ var Styleguide = function() {
 
   // extract styleguide comments from stylesheet
   sg.init = function(s){
+    load_assets()
     $.when($.get(s)).done(function(response) {
       var expression = /\/\*\!\!\!([\s\S]*?)\*\//mg
       var match
@@ -19,6 +20,21 @@ var Styleguide = function() {
       }
       render()
     });
+  }
+
+  // load all dependencies
+  var load_assets = function(){
+    var target = $('[data-guidedog-path]')
+    var url = target.attr('src')
+    var base_url = url.replace('guidedog.js', '') 
+    var html = ''
+    html += '<link rel="stylesheet" type="text/css" href="'+base_url+'/lib/default.min.css" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+base_url+'/lib/googlecode.min.css" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+base_url+'/lib/guidedog.css" />'
+    html += '<script type="text/javascript" src="'+base_url+'/lib/highlight.min.js" />'
+    html += '<script type="text/javascript" src="'+base_url+'/lib/js-yaml.js" />'
+    html += '<script type="text/javascript" src="'+base_url+'/lib/markdown.js" />'
+    $('head').append(html)
   }
 
   // loop through and output data as html
@@ -119,3 +135,4 @@ var Styleguide = function() {
   }
 }
 var sg = new Styleguide()
+sg.init($('[data-guidedog-path]').attr('data-guidedog-path'));
