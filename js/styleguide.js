@@ -1,5 +1,3 @@
-//= require_tree ./styleguide
-
 var Styleguide = function() {
 
   var sg = this 
@@ -8,8 +6,8 @@ var Styleguide = function() {
   sg.painters = []
 
   // extract styleguide comments from stylesheet
-  sg.init = function(){
-    $.when($.get("assets/public.css")).done(function(response) {
+  sg.init = function(s){
+    $.when($.get(s)).done(function(response) {
       var expression = /\/\*\!\!\!([\s\S]*?)\*\//mg
       var match
       while ((match = expression.exec(response)) != null){
