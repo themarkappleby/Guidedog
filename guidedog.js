@@ -3,25 +3,9 @@ var Styleguide = function() {
   var sg = this 
   var baseUrl = ''
 
-  sg.data = []
+  sg.data = {} 
+  sg.data.sections = [] 
   sg.painters = []
-
-  // extract styleguide comments from stylesheet
-  sg.init = function(s){
-    load_assets()
-    $.when($.get(s)).done(function(response) {
-      var expression = /\/\*\!\!\!([\s\S]*?)\*\//mg
-      var match
-      while ((match = expression.exec(response)) != null){
-        match = parse_yaml(scrub_comments(match[1]))
-        if (new_section(match.section)){
-          sg.data[match.section] = new Array()
-        }
-        sg.data[match.section][match.title] = match
-      }
-      render()
-    });
-  }
 
   // load all dependencies
   var load_assets = function(){
@@ -39,47 +23,60 @@ var Styleguide = function() {
     $('head').append(html)
   }
 
+  // extract styleguide comments from stylesheet
+  sg.init = function(s){
+    load_assets()
+    $.when($.get(s)).done(function(response) {
+      var expression = /\/\*\!\!\!([\s\S]*?)\*\//mg
+      var match
+      while ((match = expression.exec(response)) != null){
+        match = parse_yaml(scrub_comments(match[1]))
+        if (new_section(match.section)){
+          var section = match.section
+          if(!match.section) match.section = 'Undefined'
+          sg.data.sections.push({"section": match.section, "subSections": []})
+        }
+        var index = sectionIndex(match.section)
+        sg.data.sections[index].subSections.push(match)
+      }
+      render()
+    });
+  }
+
   // loop through and output data as html
   var render = function(){
     $('body').trigger('preRender')
     var html = ''
-
     $.get(baseUrl+'/lib/view.html', function(template) {
-      //alert(template)
-      //var rendered = Mustache.render(template, {name: "Luke"});
-      //$('#target').html(rendered);
-      for(section in sg.data){
-        for(section_item in sg.data[section]){
-          var view = sg.data[section][section_item]
-          console.log(template)
-          $('body').append(
-            Mustache.render(template, view)
-          )
-        }
-        //html += '<section class="sg"><a id="'+section+'"></a><h2 class="sg">'+section+'</h2>'  
-        //for(section_item in sg.data[section]){
-        //  section_item = sg.data[section][section_item]
-        //  html += '<div class="sg-item">'
-        //  for(key in section_item){
-        //    html += sg.painters[key](section_item[key])
-        //  }
-        //  html += '</div>'
-        //}
-        //html += '</section>'  
-      }
-    });
 
-    //html += nav()
-    console.log(html)
-    console.log('test')
-    $('body').html('testteststest')
-    //$('body').html(html).trigger('postRender')
+      var test = {"sections" : [
+        {
+          "section": "Avatars",
+          "subSections": [
+            {"title": "Your Avatar", "description": "Foo bar blah", "section": "Avatars" },
+            {"title": "Large Avatar", "description": "Foo bar blah", "section": "Avatars" }
+          ]
+        },
+        {
+          "section": "Buttons",
+          "subSections": [
+            {"title": "Primary Button", "description": "Foo bar blah", "section": "Avatars" },
+            {"title": "Secondary Button", "description": "Foo bar blah", "section": "Avatars" }
+          ]
+        }
+      ]}
+
+      $('body')
+      .append(Mustache.render(template, sg.data))
+      .append(nav())
+      $('pre code').each(function(i, e) {hljs.highlightBlock(e)})
+    });
   }
 
   // generate navigation
   var nav = function(){
     var html = '<nav class="sg">'
-    for(section in sg.data){
+    for(section in sg.data.sections){
       html += '<a href="#'+ section +'">' + section + '</a>'
     }
     html += '</nav>'
@@ -118,7 +115,17 @@ var Styleguide = function() {
     return output 
   }
 
-  // render example code
+  // fetch the index of sections
+  var sectionIndex = function(match){
+    for (var i=0; i<sg.data.sections.length; i++){
+      if(sg.data.sections[i].section === match){
+        return i
+      }
+    }
+    return 0
+  }
+
+  // render code samples
   sg.painters.example = function(s){
     var code = $('<span/>').text(s).html()
     code = '<pre><code>'+code+'</code></pre>'
@@ -133,8 +140,8 @@ var Styleguide = function() {
 
   // determine if the section in question already exists
   var new_section = function(section){
-    for (key in sg.data){
-      if(section === key){
+    for (key in sg.data.sections){
+      if(section === sg.data.sections[key].section){
         return false
       }
     }

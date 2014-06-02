@@ -1,1 +1,10 @@
-{{title}} foo
+{{#sections}}
+  <section>
+    <h2>{{section}}</h2>
+    {{#subSections}}
+      <h4>{{title}}</h4>
+      <p>{{description}}</p>
+      <pre><code>{{example}}</code></pre>
+    {{/subSections}}
+  </section>
+{{/sections}}
