@@ -1,6 +1,7 @@
 var Styleguide = function() {
 
   var sg = this 
+  var baseUrl = ''
 
   sg.data = []
   sg.painters = []
@@ -26,14 +27,15 @@ var Styleguide = function() {
   var load_assets = function(){
     var target = $('[data-guidedog-path]')
     var url = target.attr('src')
-    var base_url = url.replace('guidedog.js', '') 
+    baseUrl = url.replace('guidedog.js', '') 
     var html = ''
-    html += '<link rel="stylesheet" type="text/css" href="'+base_url+'/lib/default.min.css" />'
-    html += '<link rel="stylesheet" type="text/css" href="'+base_url+'/lib/googlecode.min.css" />'
-    html += '<link rel="stylesheet" type="text/css" href="'+base_url+'/lib/guidedog.css" />'
-    html += '<script type="text/javascript" src="'+base_url+'/lib/highlight.min.js" />'
-    html += '<script type="text/javascript" src="'+base_url+'/lib/js-yaml.js" />'
-    html += '<script type="text/javascript" src="'+base_url+'/lib/markdown.js" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'/lib/default.min.css" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'/lib/googlecode.min.css" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'/lib/guidedog.css" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'/lib/highlight.min.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'/lib/js-yaml.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'/lib/markdown.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'/lib/mustache.js" />'
     $('head').append(html)
   }
 
@@ -41,20 +43,37 @@ var Styleguide = function() {
   var render = function(){
     $('body').trigger('preRender')
     var html = ''
-    for(section in sg.data){
-      html += '<section class="sg"><a id="'+section+'"></a><h2 class="sg">'+section+'</h2>'  
-      for(section_item in sg.data[section]){
-        section_item = sg.data[section][section_item]
-        html += '<div class="sg-item">'
-        for(key in section_item){
-          html += sg.painters[key](section_item[key])
+
+    $.get(baseUrl+'/lib/view.html', function(template) {
+      //alert(template)
+      //var rendered = Mustache.render(template, {name: "Luke"});
+      //$('#target').html(rendered);
+      for(section in sg.data){
+        for(section_item in sg.data[section]){
+          var view = sg.data[section][section_item]
+          console.log(template)
+          $('body').append(
+            Mustache.render(template, view)
+          )
         }
-        html += '</div>'
+        //html += '<section class="sg"><a id="'+section+'"></a><h2 class="sg">'+section+'</h2>'  
+        //for(section_item in sg.data[section]){
+        //  section_item = sg.data[section][section_item]
+        //  html += '<div class="sg-item">'
+        //  for(key in section_item){
+        //    html += sg.painters[key](section_item[key])
+        //  }
+        //  html += '</div>'
+        //}
+        //html += '</section>'  
       }
-      html += '</section>'  
-    }
-    html += nav()
-    $('body').html(html).trigger('postRender')
+    });
+
+    //html += nav()
+    console.log(html)
+    console.log('test')
+    $('body').html('testteststest')
+    //$('body').html(html).trigger('postRender')
   }
 
   // generate navigation
