@@ -4,7 +4,21 @@
     {{#subSections}}
       <h4>{{title}}</h4>
       <p>{{description}}</p>
+      {{{example}}}
       <pre><code>{{example}}</code></pre>
+      <div class='sg-swatches'>
+        {{#swatches}}
+          {{name}}
+          {{value}}
+        {{/swatches}}
+      </div>
+      {{}}
     {{/subSections}}
   </section>
 {{/sections}}
+
+<nav class='sg'>
+  {{#sections}}
+    <a href="#">{{section}}</a>
+  {{/sections}}
+</nav>
