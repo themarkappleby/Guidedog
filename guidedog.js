@@ -30,7 +30,11 @@ var Styleguide = function() {
         if (new_section(match.section)){
           var section = match.section
           if(!match.section) match.section = 'Undefined'
-          sg.data.sections.push({"section": match.section, "subSections": []})
+          sg.data.sections.push({
+            "section": match.section, 
+            "id": match.section.replace(/\s+/g, '').toLowerCase(), 
+            "subSections": []
+          })
         }
         var index = sectionIndex(match.section)
         sg.data.sections[index].subSections.push(match)
@@ -42,6 +46,7 @@ var Styleguide = function() {
   // pass json data to Mustache template
   var render = function(){
     $.get(baseUrl+'/lib/view.html', function(template) {
+      console.log(sg.data)
       $('body').append(Mustache.render(template, sg.data))
       $('pre code').each(function(i, e) {hljs.highlightBlock(e)})
     });
