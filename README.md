@@ -19,9 +19,40 @@ The recommended way to install Guidedog is via [Bower](http://bower.io/) but Gui
 1. Create a new blank page/view and add `<script data-guidedog-path='assets/application.css' src='bower_components/guidedog/guidedog.js' type='text/javascript'></script>` replacing `data-guidedog-path` with the path to your concatenated and minified stylesheet.
 1. Visit the new page you just created (if you've already added any Guidedog comments to your stylesheets you should see them here).
 
-###Insalling without Bower
+###Installing Guidedog without Bower
+
 1. Download and move the Guidedog folder to a publicly accessible location.
 1. Create a new blank page/view and add `<script data-guidedog-path='assets/application.css' src='your_path_to_guidedog/guidedog.js' type='text/javascript'></script>` replacing `data-guidedog-path` with the path to your concatenated and minified stylesheet.
 1. Visit the new page you just created (if you've already added any Guidedog comments to your stylesheets you should see them here).
 
 ##Working with Guidedog
+
+Guidedog works by parsing your CSS file for a specific comment structure. Guidedog first looks for comment blocks wrapped with `/*!!!` and `*/` marks. It then parses the text in these comment blocks as YAML[http://www.yaml.org/]. Guidedog even works when CSS is minified because comments wrapped with `/*!` and `*/` are flagged as important and therefore retained.
+
+Guidedog currently features the following comment types:
+
+| Name        | Required | Function                                                                                     |
+| ----------- | -------- | -------------------------------------------------------------------------------------------- |
+| title       | optional | The name of the specific element (ex. Primary Button)                                        |
+| section     | required | The larger section the element belongs to (ex. Buttons)                                      |
+| description | optional | A [Markdown](http://daringfireball.net/projects/markdown/) parsed description of the element |
+| example     | optional | An HTML example of the element in use                                                        |
+| swatches    | optional | An array of colors and their associated variable names                                       |
+
+####Example Guidedog comment block
+```
+/*!!!
+ * title: Primary Button
+ * section: Buttons
+ * description: Primary basic button element (can be an anchor element, button element, or input element)
+ * example: <a href="#" class="primary button">Button</a>
+ */
+```
+
+####Example Guidedog swatches comment block
+```
+/*!!!
+ * section: Colours
+ * swatches: [{name: primary, value: "#fef3ea"}, {name: secondary, value: "#6c6da3"}]
+ */
+```
