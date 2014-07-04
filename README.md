@@ -7,8 +7,6 @@
                                          __/ |
                                         |___/ 
 
-========
-
 Create platform agnostic living styleguides with ease
 
 ##What is this thing?
