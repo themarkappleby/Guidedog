@@ -10,13 +10,13 @@ var Styleguide = function() {
   var load_assets = function(){
     var html = ''
     baseUrl = $('[data-guidedog-path]').attr('src').replace('guidedog.js', '') 
-    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'/lib/default.min.css" />'
-    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'/lib/googlecode.min.css" />'
-    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'/lib/guidedog.css" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'/lib/highlight.min.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'/lib/js-yaml.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'/lib/markdown.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'/lib/mustache.js" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/default.min.css" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/googlecode.min.css" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/guidedog.css" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'lib/highlight.min.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'lib/js-yaml.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'lib/markdown.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'lib/mustache.js" />'
     $('head').append(html)
   }
 
