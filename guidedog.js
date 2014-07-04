@@ -47,7 +47,7 @@ var Styleguide = function() {
   var render = function(){
     $.get(baseUrl+'/lib/view.html', function(template) {
       console.log(sg.data)
-      $('body').append(Mustache.render(template, sg.data))
+      $('body').html('').append(Mustache.render(template, sg.data))
       $('pre code').each(function(i, e) {hljs.highlightBlock(e)})
     });
   }
@@ -75,7 +75,6 @@ var Styleguide = function() {
   // prep string for YAML parser
   var scrub_comments = function(match){
     match = match.replace(/\ *\*\ /g, '')
-    match = match.replace(/\#/g, '')
     return match
   }
 }

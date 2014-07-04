@@ -136,6 +136,13 @@ nav.sg{
   background: #FAFAFA;
 }
 
+@media (max-width: 1000px) {
+  nav.sg{
+    display: none;
+  }
+   
+}
+
 nav.sg a{
   display: block;
   text-transform: lowercase;

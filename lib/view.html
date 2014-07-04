@@ -9,8 +9,16 @@
       <pre><code>{{example}}</code></pre>
       <div class='sg-swatches'>
         {{#swatches}}
-          {{name}}
-          {{value}}
+        <div class='sg-swatch'>
+          <div class='sg-swatch-sample' style="background-color: {{value}}">
+          </div>
+          <div class='sg-swatch-info'>
+            {{name}}
+            <span class='sg-swatch-value'>
+              {{value}}
+            </span>
+          </div>
+        </div>
         {{/swatches}}
       </div>
       {{}}
