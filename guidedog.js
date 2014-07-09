@@ -24,8 +24,11 @@ var Styleguide = function() {
   sg.init = function(s){
     load_assets()
     $.when($.get(s)).done(function(response) {
-      var expression = /\/\*\!\!\!([\s\S]*?)\*\//mg
+      var expression = /\/\*\!\!([\s\S]*?)\*\//mg
       while ((match = expression.exec(response)) != null){
+        if(match[1].substring(0,1) == '!'){
+          match[1] = match[1].substring(1)
+        }
         match = jsyaml.load(scrub_comments(match[1]))
         if (new_section(match.section)){
           var section = match.section
