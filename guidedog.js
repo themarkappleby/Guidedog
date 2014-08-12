@@ -5,6 +5,7 @@ var Styleguide = function() {
 
   sg.data = {} 
   sg.data.sections = [] 
+  sg.data.info = []
 
   // load all dependencies
   var load_assets = function(){
@@ -42,6 +43,7 @@ var Styleguide = function() {
         var index = sectionIndex(match.section)
         sg.data.sections[index].subSections.push(match)
       }
+      sg.data.info.push({"logo": $('[data-guidedog-path]').attr('data-logo-path')});
       render()
     });
   }

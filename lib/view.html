@@ -1,19 +1,22 @@
 {{#sections}}
-  <section>
+  <section class="sg">
     <a id="{{id}}" name="{{id}}"></a>
-    <h2>{{section}}</h2>
+    <h2 class="sg">{{section}}</h2>
     {{#subSections}}
-      <h4>{{title}}</h4>
-      <p>{{description}}</p>
-      {{{example}}}
-      <pre><code>{{example}}</code></pre>
+      {{#title}}<h3 class="sg">{{title}}</h3>{{/title}}
+      {{#description}}<p class="sg">{{description}}</p>{{/description}}
+      {{#example}}{{{example}}}{{/example}}
+      {{#example}}<pre class="sg"><code>{{example}}</code></pre>{{/example}}
+
       <div class='sg-swatches'>
         {{#swatches}}
         <div class='sg-swatch'>
           <div class='sg-swatch-sample' style="background-color: {{value}}">
           </div>
           <div class='sg-swatch-info'>
-            {{name}}
+            <span class='sg-swatch-name'>
+              {{name}}
+            </span>
             <span class='sg-swatch-value'>
               {{value}}
             </span>
@@ -21,12 +24,18 @@
         </div>
         {{/swatches}}
       </div>
+
       {{}}
     {{/subSections}}
   </section>
 {{/sections}}
 
 <nav class='sg'>
+  {{#info}}
+    {{#logo}}
+      <img class='sg' src="{{logo}}" />
+    {{/logo}}
+  {{/info}}
   {{#sections}}
     <a href="#{{id}}">{{section}}</a>
   {{/sections}}

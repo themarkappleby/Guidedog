@@ -4,143 +4,81 @@
 
 body{
   background: white;
-  font-family: arial;
-  max-width: 640px;
+  max-width: 943px;
   margin: 15px auto;
   padding: 15px;
-  color: grey;
+  padding-left: 175px;
   font-family: 'Open Sans', sans-serif;
 }
 
 section.sg{
-  padding: 0;
-  padding-bottom: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
+  padding: 20px;
   background: #FAFAFA;
-  padding: 15px;
-  border: 0;
-  border-top: 5px solid #E8E9EA;
+  z-index: -2;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 }
 
-section.sg:last-child{
-  border-bottom: 0;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-h1.sg, h2.sg, h3.sg, h4.sg, h5.sg, h6.sg{
-  margin: 0;
-  padding: 0;
-  padding-bottom: 10px;
-  font-weight: bold;
-}
-
-h2.sg{
-  font-size: 26px;
-  color: black;
-  margin-top: -9px;
-}
-
-h3.sg{
-  font-size: 18px;
-  color: black;
-  padding: 10px;
-  padding-bottom: 0;
-  background: white;
-}
-
-.sg-code pre{
-  max-height: 0;
-  overflow: hidden;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-}
-
-.sg-code pre, .sg-code code{
-  margin: 0;
-}
-
-.sg-code code{
-  overflow: auto;
-  padding: 10px;
-}
-
-.sg-code-output{
-  padding: 10px;
-  background: white;
-  border-bottom: 2px solid #FAFAFA;
-}
-
-.sg-item{
-  padding-bottom: 15px;
-}
-
-.sg-item:last-child{
-  padding-bottom: 0;
-}
-
-.sg-item p{
-  padding: 10px;
-  background: white;
-  font-size: 14px;
-  margin: 0;
-}
-
-.sg-item:hover pre{
-  max-height: 200px;
-}
-
-.sg-swatches{
+p.sg{
   margin-top: 0;
-  background: white;
-  padding: 15px;
-}
-
-.sg-swatch{
   margin-bottom: 10px;
 }
 
-.sg-swatch:last-child{
-  margin-bottom: 0;
+pre.sg code{
+  overflow-x: auto;
 }
 
-.sg-swatch-sample{
-  width: 40px;
-  height: 40px;
-  display: inline-block;
-  vertical-align: middle;
+/* ---- headings ---- */
+h2.sg{
+  background: #e1e1e1;
+  margin: -20px -35px;
+  margin-bottom: 20px;
+  padding: 10px 35px;
+  font-size: 20px;
+  position: relative;
+  box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.8);
+  color: #222;
+  text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.85);
 }
 
-.sg-swatch-info{
-  padding-left: 10px;
-  display: inline-block;
-  vertical-align: middle;
+h2.sg:before, h2.sg:after{
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 24px solid #b7b7b7;
+  border-bottom: 24px solid #b7b7b7;
+  border-right: 25px solid #b7b7b7;
+  border-left: 10px solid transparent;
+  position: absolute;
+  top: 10px;
+  left: -18px;
+  z-index: -1;
 }
 
-.sg-swatch-value{
-  background: #FAFAFA;
-  padding: 3px;
-  border-radius: 3px;
-  font-size: 12px;
+h2.sg:after{
+  left: auto;
+  right: -18px;
+  border-left: 25px solid #b7b7b7;
+  border-right: 10px solid transparent;
 }
 
+h3.sg{
+  margin-top: 20px;
+  border-bottom: 1px solid grey;
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+  font-size: 18px;
+}
+
+/* ---- nav ---- */
 nav.sg{
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  padding: 20px;
   background: #FAFAFA;
-}
-
-@media (max-width: 1000px) {
-  nav.sg{
-    display: none;
-  }
-   
+  min-width: 175px;
 }
 
 nav.sg a{
@@ -148,4 +86,69 @@ nav.sg a{
   text-transform: lowercase;
   text-decoration: none;
   padding: 3px 0;
+  text-transform: capitalize;
+  padding: 10px 20px;
+  border-bottom: 1px solid #E1E1E1;
+  border-left: 0px solid black;
+  transition: all 0.2s ease-in-out;
+}
+
+nav.sg a:hover{
+  border-left: 5px solid grey;
+  background-color: #f2f2f2;
+}
+
+img.sg{
+  display: block;
+  margin: 15px;
+  max-width: 150px;
+}
+
+@media (max-width: 1000px) {
+  nav.sg{
+    display: none;
+  }
+  body{
+    padding: 15px;
+  }
+  h2.sg{
+    margin: -15px;
+    margin-bottom: 15px;
+    padding-left: 15px; 
+    padding-right: 15px;
+  }
+  h2.sg:before, h2.sg:after{
+    display: none;
+  }
+}
+
+.sg-swatch{
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  position: relative;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.sg-swatch-info{
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.sg-swatch-name{
+  font-weight: bold;
+}
+
+.sg-swatch-sample{
+  width: 220px;
+  height: 160px; 
+}
+
+.sg-swatch-value{
+  display: block;
 }
