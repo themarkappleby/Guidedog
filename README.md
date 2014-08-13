@@ -56,3 +56,7 @@ Guidedog currently features the following comment types:
  * swatches: [{name: primary, value: "#fef3ea"}, {name: secondary, value: "#6c6da3"}]
  */
 ```
+
+###Adding a Logo
+
+Guidedog allows you to add a custom logo to the top of the navigation section. To add a custom logo, simply add the `data-logo-path` attribute to the Guidedog script reference with the full path to your logo asset. For example: `<script data-guidedog-path='assets/application.css' data-logo-path='path_to_the_logo.png' src='your_path_to_guidedog/guidedog.js' type='text/javascript'></script>`
