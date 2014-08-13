@@ -83,5 +83,7 @@ var Styleguide = function() {
     return match
   }
 }
-var sg = new Styleguide()
-sg.init($('[data-guidedog-path]').attr('data-guidedog-path'));
+$(document).ready(function(){
+  var sg = new Styleguide()
+  sg.init($('[data-guidedog-path]').attr('data-guidedog-path'));
+});
