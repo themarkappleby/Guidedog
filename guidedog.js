@@ -25,12 +25,14 @@ var Styleguide = function() {
   sg.init = function(s){
     load_assets()
     $.when($.get(s)).done(function(response) {
+
       var expression = /\/\*\!\!([\s\S]*?)\*\//mg
       while ((match = expression.exec(response)) != null){
         if(match[1].substring(0,1) == '!'){
           match[1] = match[1].substring(1)
         }
         match = jsyaml.load(scrub_comments(match[1]))
+        if(match.description) match.description = markdown.toHTML(match.description)
         if (new_section(match.section)){
           var section = match.section
           if(!match.section) match.section = 'Undefined'
@@ -51,9 +53,42 @@ var Styleguide = function() {
   // pass json data to Mustache template
   var render = function(){
     $.get(baseUrl+'/lib/view.html', function(template) {
-      console.log(sg.data)
       $('body').html('').append(Mustache.render(template, sg.data))
       $('pre code').each(function(i, e) {hljs.highlightBlock(e)})
+      $('.guidedog').each(function(){ $(this).css('background', '#'+Math.floor(Math.random()*16777215).toString(16)); });
+      updateNav();     
+      scrollTo();
+      $(document).on('scroll', function(){updateNav();});
+      $(document).trigger('guidedogReady');
+    });
+  }
+
+  // update active nav item
+  var updateNav = function(){
+    var found = false;
+    var windowScrollTop = $(window).scrollTop();
+    var windowScrollBottom = $(window).height() + windowScrollTop;
+    $('section.sg').each(function(){
+      if(!found){
+        var target = $(this).find('.sg-target');
+        var targetScrollTop = target.offset().top;
+        if(targetScrollTop >= windowScrollTop && targetScrollTop < windowScrollBottom){
+          console.log(target.attr('name'));
+          $('nav.sg a.active').removeClass('active');
+          $('nav.sg a[href="#'+target.attr('name')+'"]').addClass('active');
+          found = true;
+        }
+      }
+    });
+  }
+
+  // scrollto nav items
+  var scrollTo = function(){
+    $('nav.sg').on('click', 'a', function(e){
+      e.preventDefault();
+      $('html, body').animate({
+        scrollTop: $($(this).attr('href')).offset().top - 30
+      }, 1000);
     });
   }
 

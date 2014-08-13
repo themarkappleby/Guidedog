@@ -60,3 +60,7 @@ Guidedog currently features the following comment types:
 ###Adding a Logo
 
 Guidedog allows you to add a custom logo to the top of the navigation section. To add a custom logo, simply add the `data-logo-path` attribute to the Guidedog script reference with the full path to your logo asset. For example: `<script data-guidedog-path='assets/application.css' data-logo-path='path_to_the_logo.png' src='your_path_to_guidedog/guidedog.js' type='text/javascript'></script>`
+
+###Guidedog Sample Objects
+
+Sometimes it is helpful to have a colour block to quickly and more clearly help convey a concept in a styleguide. Guidedog has a built-in helper for generating random coloured blocks. Simply apply the class `guidedog` to any element in your styleguide.
