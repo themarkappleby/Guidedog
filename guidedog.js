@@ -17,6 +17,8 @@ var Styleguide = function() {
     html += '<script type="text/javascript" src="'+baseUrl+'lib/highlight.min.js" />'
     html += '<script type="text/javascript" src="'+baseUrl+'lib/js-yaml.js" />'
     html += '<script type="text/javascript" src="'+baseUrl+'lib/markdown.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'lib/beautify-html.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'lib/jade.js" />'
     html += '<script type="text/javascript" src="'+baseUrl+'lib/mustache.js" />'
     $('head').append(html)
   }
@@ -54,12 +56,27 @@ var Styleguide = function() {
   var render = function(){
     $.get(baseUrl+'/lib/view.html', function(template) {
       $('body').html('').append(Mustache.render(template, sg.data))
+      compileJade();
       $('pre code').each(function(i, e) {hljs.highlightBlock(e)})
       $('.guidedog').each(function(){ $(this).css('background', '#'+Math.floor(Math.random()*16777215).toString(16)); });
       updateNav();     
       scrollTo();
       $(document).on('scroll', function(){updateNav();});
       $(document).trigger('guidedogReady');
+    });
+  }
+
+  // compile jade examples
+  var compileJade = function(){
+    $('.sg-jade').each(function(){
+      var target = $(this)
+      var code = target.find('code')
+      var string = code.html();
+      string = string.replace(/^\s+|\s+$/g,'')
+      string = jade.compile(string)()
+      target.before('<div />')
+      target.prev().html(string)
+      code.text(style_html(string))
     });
   }
 
@@ -73,7 +90,6 @@ var Styleguide = function() {
         var target = $(this).find('.sg-target');
         var targetScrollTop = target.offset().top;
         if(targetScrollTop >= windowScrollTop && targetScrollTop < windowScrollBottom){
-          console.log(target.attr('name'));
           $('nav.sg a.active').removeClass('active');
           $('nav.sg a[href="#'+target.attr('name')+'"]').addClass('active');
           found = true;

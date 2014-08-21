@@ -37,6 +37,7 @@ Guidedog currently features the following comment types:
 | section     | required | The larger section the element belongs to (ex. Buttons)                                      |
 | description | optional | A [Markdown](http://daringfireball.net/projects/markdown/) parsed description of the element |
 | example     | optional | An HTML example of the element in use                                                        |
+| jade        | optional | A Jade example of the element in use (will render as HTML in Guidedog)                       |
 | swatches    | optional | An array of colors and their associated variable names                                       |
 
 ####Example Guidedog comment block
