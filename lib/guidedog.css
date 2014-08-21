@@ -7,6 +7,15 @@ body{
   padding: 15px;
   padding-left: 175px;
   font-family: 'Open Sans', sans-serif;
+  -webkit-transform:none !important;
+  -moz-transform:none !important;
+  -ms-transform:none !important;
+  -o-transform:none !important;
+  transform:none !important;
+  -webkit-transition:none !important;
+  -moz-transition:none !important;
+  -o-transition:none !important;
+  transition:none !important;
 }
 
 .guidedog{
