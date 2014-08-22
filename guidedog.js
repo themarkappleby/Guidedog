@@ -54,7 +54,7 @@ var Styleguide = function() {
 
   // pass json data to Mustache template
   var render = function(){
-    $.get(baseUrl+'/lib/view.html', function(template) {
+    $.get(baseUrl+'lib/view.html', function(template) {
       $('body').html('').append(Mustache.render(template, sg.data))
       compileJade();
       $('pre code').each(function(i, e) {hljs.highlightBlock(e)})
