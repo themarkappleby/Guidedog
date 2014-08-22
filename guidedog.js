@@ -71,7 +71,7 @@ var Styleguide = function() {
     $('.sg-jade').each(function(){
       var target = $(this)
       var code = target.find('code')
-      var string = code.html();
+      var string = code.text();
       string = string.replace(/^\s+|\s+$/g,'')
       string = jade.compile(string)()
       target.before('<div />')
