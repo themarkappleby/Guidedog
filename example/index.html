@@ -6,7 +6,9 @@
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link rel="stylesheet" type="text/css" href="/dist/guidedog.css">
   </head>
-  <body>loading...
+  <body>
+    <p>Guidedog requires a server to work, you cannot view HTML files directly in your file system. This means you want the URL to read something like http://mysite.com or //http://localhost:3000/ and NOT file:///Users/local/path/to/guidedog/example.html. Luckily, Guidedog comes with a simple Node server to get you started. To start the server, simply navigate to the root Guidedog folder in Terminal, and run `gulp`.</p>
+    <p>Note - You'll have to install Node in order to start the server.</p>
     <script>
       $(document).on('guidedogReady', function() {
         $('head').append('<script type="text/javascript" src="/js/app.min.js" />')
