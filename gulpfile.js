@@ -18,6 +18,7 @@ var vendorJSDependencies = [
   './bower_components/markdown/lib/markdown.js',
   './bower_components/mustache/mustache.js',
   './bower_components/prism/prism.js',
+  './bower_components/prism/components/prism-haskell.js',
   './bower_components/prism/plugins/line-numbers/prism-line-numbers.js',
   './bower_components/zeroclipboard/dist/ZeroClipboard.js',
   './bower_components/js-yaml/dist/js-yaml.js'

@@ -9,7 +9,6 @@ var Styleguide = function() {
 
   // extract styleguide comments from stylesheet
   sg.init = function(s){
-    $('head').append('<link rel="stylesheet" type="text/css" href="'+baseUrl+'guidedog.css" />')
     $.when($.get(s)).done(function(response) {
 
       var expression = /\/\*\!\!([\s\S]*?)\*\//mg
