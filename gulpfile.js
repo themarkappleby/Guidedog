@@ -9,109 +9,82 @@ var gulp = require('gulp'),
     jade = require('gulp-jade'),
     concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
-    notify = require('gulp-notify'),
-    fs = require('fs'),
-    s3 = require("gulp-s3"),
-    db = require('./db');
+    notify = require('gulp-notify');
 
-//-- Bower Dependencies -----------------------------------------------------
-
-var bowerJsDependencies = [
-  './bower_components/jquery/dist/jquery.js',
-  './vendor/javascript/jquery.bxslider.min.js',
-  './vendor/javascript/jquery.accordion.js',
-  './vendor/javascript/jquery-ui.min.js'
+//-- Vendor Dependencies -----------------------------------------------------
+var vendorJSDependencies = [
+  './vendor/beautify-html/beautify-html.js',
+  './vendor/jade/jade.js',
+  './vendor/markdown/markdown.js',
+  './vendor/mustache/mustache.js',
+  './vendor/prism/prism-toolbar.js',
+  './vendor/prism/prism.js',
+  './vendor/yaml/js-yaml.js',
+  './vendor/zeroclipboard/ZeroClipboard.js'
+];
+var vendorCSSDependencies = [
+  './vendor/prism/prism-toolbar.css',
+  './vendor/prism/prism.css'
 ];
 
-var bowerCSSDependencies = [
-  './vendor/css/jquery.bxslider.css',
-  './vendor/css/jquery-ui.css'
-];
-
-//-- Icons -----------------------------------------------------
-
-gulp.task('icons', function() {
-  gulp.src('./source/icons/fonts/*')
-    .pipe(gulp.dest('./dist/css/fonts'));
-
-  gulp.src('./source/icons/style.css')
-    .pipe(rename('_icons.styl'))
-    .pipe(gulp.dest('./source/stylus/initializers/'));
-});
-
-//-- Staging Deploy -----------------------------------------------------
-
-gulp.task('deploy', function() {
-  aws = JSON.parse(fs.readFileSync('./aws.json'));
-  gulp.src('./dist/**')
-      .pipe(s3(aws));
-  gulp.src('./source/icons/**')
-      .pipe(s3(aws, {
-        uploadPath: 'source/icons/'
-      }));
-  gulp.src('./bower_components/**')
-      .pipe(s3(aws, {
-        uploadPath: 'bower_components/'
-      }));
-});
-
-//-- Convert Jade to HTML -----------------------------------------------------
-
-gulp.task('jade', function() {
-  return gulp.src('./source/jade/*.jade')
-    .pipe(jade({
-      locals: db,
-      pretty: true
-    }))
-    .on("error", notify.onError(function (error) {
-      return "Jade error: " + error.message;
-    }))
+//-- Compile JS -----------------------------------------------------
+gulp.task('guidedog-js', function(){
+  vendorJSDependencies.push('./src/guidedog/js/guidedog.js');
+  gulp.src(vendorJSDependencies)
+    .pipe(concat('guidedog.min.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('./dist/'));
 });
+gulp.task('example-js', function(){
+  gulp.src('./src/example/js/**/*.js')
+    .pipe(concat('app.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./example/js/'));
+});
 
-//-- Concat & Minify Stylus -----------------------------------------------------
-
-gulp.task('styl', function() {
-  return gulp.src('./source/stylus/urbanadventures.styl')
+//-- Compile Styles -----------------------------------------------------
+gulp.task('guidedog-css', function(){
+  // compile guidedog stylus
+  gulp.src('./src/guidedog/styl/**/*.styl')
     .pipe(stylus())
     .on("error", notify.onError(function (error) {
       return "Stylus error: " + error.message;
     }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(minify())
-    .pipe(gulp.dest('./dist/css'));
-});
-
-//-- Concat & Minify JS -----------------------------------------------------
-gulp.task('js', function() {
-  return gulp.src('./source/js/*.js')
-    .pipe(order([
-      'urbanadventures.js',
-      '*.js'
-    ]))
-    .pipe(concat('urbanadventures.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./dist/js'));
-});
-
-//-- Manage vendor JS -----------------------------------------------------
-gulp.task('vendor-js', function() {
-  return gulp.src(bowerJsDependencies)
-    .pipe(order([
-      'jquery.js',
-      '*.js'
-    ]))
-    .pipe(concat('vendor.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./dist/js'));
-});
-
-//-- Manage vendor CSS -----------------------------------------------------
-gulp.task('vendor-css', function() {
-  return gulp.src(bowerCSSDependencies)
+    .pipe(gulp.dest('./vendor/guidedog/'));
+  // merge compiled guidedog stylus with vendor CSS
+  vendorCSSDependencies.push('./vendor/guidedog/guidedog.css')
+  gulp.src(vendorCSSDependencies)
+    .pipe(concat('guidedog.css'))
     .pipe(minify())
-    .pipe(concat('vendor.min.css'))
-    .pipe(gulp.dest('./dist/css'));
+    .pipe(gulp.dest('./dist/'));
+});
+gulp.task('example-css', function(){
+  gulp.src('./src/example/styl/**/*.styl')
+    .pipe(stylus())
+    .on("error", notify.onError(function (error) {
+      return "Stylus error: " + error.message;
+    }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(minify())
+    .pipe(gulp.dest('./example/css/'));
+});
+
+//-- Compile Views -----------------------------------------------------
+gulp.task('guidedog-views', function(){
+  gulp.src('./src/guidedog/html/template.html')
+    .pipe(gulp.dest('./dist/'));
+});
+gulp.task('example-views', function(){
+  gulp.src('./src/example/jade/index.jade')
+    .pipe(jade({
+      pretty: true
+    }))
+    .on("error", notify.onError(function (error) {
+      return "Jade error: " + error.message;
+    }))
+    .pipe(gulp.dest('./example/'));
 });
 
 //-- Start local server -----------------------------------------------------
@@ -128,13 +101,15 @@ gulp.task('server', function() {
 })
 
 //-- Watch Files for Changes -----------------------------------------------------
-
 gulp.task('watch', function(){
-  gulp.watch('./source/jade/**/*.jade', ['jade']);
-  gulp.watch('./source/js/**/*.js', ['js']);
-  gulp.watch('./source/stylus/**/*.styl', ['styl']);
+  gulp.watch('./src/example/jade/index.jade', ['example-views']);
+  gulp.watch('./src/example/js/**/*.js', ['example-js']);
+  gulp.watch('./src/example/styl/**/*.styl', ['example-css']);
+
+  gulp.watch('./src/guidedog/html/template.html', ['guidedog-views']);
+  gulp.watch('./src/guidedog/js/guidedog.js', ['guidedog-js']);
+  gulp.watch('./src/guidedog/styl/**/*.styl', ['guidedog-css']);
 })
 
 //-- Default Task -----------------------------------------------------
-
-gulp.task('default', ['icons', 'styl', 'js', 'jade', 'vendor-js', 'vendor-css', 'server', 'watch']);
+gulp.task('default', ['example-views', 'example-js', 'example-css', 'guidedog-views', 'guidedog-js', 'guidedog-css', 'watch', 'server']);
