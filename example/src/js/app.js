@@ -1,4 +1,4 @@
 function test(){
-  alert('working');
+  console.log('working');
 }
 test();

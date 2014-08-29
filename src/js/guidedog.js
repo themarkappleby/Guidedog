@@ -1,33 +1,14 @@
 var Styleguide = function() {
 
   var sg = this 
-  var baseUrl = ''
+  var baseUrl = $('[data-guidedog-path]').attr('src').replace('guidedog.min.js', '')
 
   sg.data = {} 
   sg.data.sections = [] 
   sg.data.info = []
 
-  // load all dependencies
-  var load_assets = function(){
-    var html = ''
-    baseUrl = $('[data-guidedog-path]').attr('src').replace('guidedog.js', '') 
-    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/guidedog.css" />'
-    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/prism.css" />'
-    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/prism-toolbar.css" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'lib/js-yaml.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'lib/ZeroClipboard.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'lib/markdown.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'lib/beautify-html.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'lib/jade.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'lib/mustache.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'lib/prism.js" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'lib/prism-toolbar.js" />'
-    $('head').append(html)
-  }
-
   // extract styleguide comments from stylesheet
   sg.init = function(s){
-    load_assets()
     $.when($.get(s)).done(function(response) {
 
       var expression = /\/\*\!\!([\s\S]*?)\*\//mg
@@ -56,8 +37,8 @@ var Styleguide = function() {
 
   // pass json data to Mustache template
   var render = function(){
-    $.get(baseUrl+'lib/template.html', function(template) {
-      $('body').prepend(Mustache.render(template, sg.data))
+    $.get(baseUrl+'template.html', function(template) {
+      $('body').html('').prepend(Mustache.render(template, sg.data))
       compileJade();
       $('.guidedog').each(function(){ $(this).css('background', '#'+Math.floor(Math.random()*16777215).toString(16)); });
       syntaxHighlight();

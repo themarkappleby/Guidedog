@@ -1,1 +1,6 @@
-body{background:red}
+/*!!
+section: Buttons
+title: Primary Button
+jade: |
+  a.button(href="#") Primary Button
+*/.button{background:red;padding:5px;border-radius:5px;color:#fff;display:inline-block;text-decoration:none}
