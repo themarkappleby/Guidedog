@@ -29,14 +29,14 @@ var vendorCSSDependencies = [
 
 //-- Compile JS -----------------------------------------------------
 gulp.task('guidedog-js', function(){
-  vendorJSDependencies.push('./src/guidedog/js/guidedog.js');
+  vendorJSDependencies.push('./src/js/guidedog.js');
   gulp.src(vendorJSDependencies)
     .pipe(concat('guidedog.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/'));
 });
 gulp.task('example-js', function(){
-  gulp.src('./src/example/js/**/*.js')
+  gulp.src('./example/src/js/**/*.js')
     .pipe(concat('app.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./example/js/'));
@@ -45,7 +45,7 @@ gulp.task('example-js', function(){
 //-- Compile Styles -----------------------------------------------------
 gulp.task('guidedog-css', function(){
   // compile guidedog stylus
-  gulp.src('./src/guidedog/styl/**/*.styl')
+  gulp.src('./src/styl/**/*.styl')
     .pipe(stylus())
     .on("error", notify.onError(function (error) {
       return "Stylus error: " + error.message;
@@ -61,7 +61,7 @@ gulp.task('guidedog-css', function(){
     .pipe(gulp.dest('./dist/'));
 });
 gulp.task('example-css', function(){
-  gulp.src('./src/example/styl/**/*.styl')
+  gulp.src('./example/src/styl/**/*.styl')
     .pipe(stylus())
     .on("error", notify.onError(function (error) {
       return "Stylus error: " + error.message;
@@ -73,11 +73,11 @@ gulp.task('example-css', function(){
 
 //-- Compile Views -----------------------------------------------------
 gulp.task('guidedog-views', function(){
-  gulp.src('./src/guidedog/html/template.html')
+  gulp.src('./src/html/template.html')
     .pipe(gulp.dest('./dist/'));
 });
 gulp.task('example-views', function(){
-  gulp.src('./src/example/jade/index.jade')
+  gulp.src('./example/src/jade/index.jade')
     .pipe(jade({
       pretty: true
     }))
@@ -102,13 +102,13 @@ gulp.task('server', function() {
 
 //-- Watch Files for Changes -----------------------------------------------------
 gulp.task('watch', function(){
-  gulp.watch('./src/example/jade/index.jade', ['example-views']);
-  gulp.watch('./src/example/js/**/*.js', ['example-js']);
-  gulp.watch('./src/example/styl/**/*.styl', ['example-css']);
+  gulp.watch('./example/src/jade/index.jade', ['example-views']);
+  gulp.watch('./example/src/js/**/*.js', ['example-js']);
+  gulp.watch('./example/src/styl/**/*.styl', ['example-css']);
 
-  gulp.watch('./src/guidedog/html/template.html', ['guidedog-views']);
-  gulp.watch('./src/guidedog/js/guidedog.js', ['guidedog-js']);
-  gulp.watch('./src/guidedog/styl/**/*.styl', ['guidedog-css']);
+  gulp.watch('./src/html/template.html', ['guidedog-views']);
+  gulp.watch('./src/js/guidedog.js', ['guidedog-js']);
+  gulp.watch('./src/styl/**/*.styl', ['guidedog-css']);
 })
 
 //-- Default Task -----------------------------------------------------
