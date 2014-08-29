@@ -13,19 +13,21 @@ var gulp = require('gulp'),
 
 //-- Vendor Dependencies -----------------------------------------------------
 var vendorJSDependencies = [
-  './vendor/beautify-html/beautify-html.js',
-  './vendor/jade/jade.js',
-  './vendor/markdown/markdown.js',
-  './vendor/mustache/mustache.js',
-  './vendor/prism/prism.js',
-  './vendor/zeroclipboard/ZeroClipboard.js',
-  './vendor/yaml/js-yaml.js',
+  './bower_components/js-beautify/js/lib/beautify-html.js',
+  './bower_components/jade/jade.js',
+  './bower_components/markdown/lib/markdown.js',
+  './bower_components/mustache/mustache.js',
+  './bower_components/prism/prism.js',
+  './bower_components/prism/plugins/line-numbers/prism-line-numbers.js',
+  './bower_components/zeroclipboard/dist/ZeroClipboard.js',
+  './bower_components/js-yaml/dist/js-yaml.js'
 ];
 var vendorCSSDependencies = [ 
-  './vendor/prism/prism.css'
+  './bower_components/prism/themes/prism-coy.css',
+  './bower_components/prism/plugins/line-numbers/prism-line-numbers.css'
 ];
 var vendorSWFDependencies = [
-  './vendor/zeroclipboard/ZeroClipboard.swf'
+  './bower_components/zeroclipboard/dist/ZeroClipboard.swf'
 ]
 
 //-- Compile JS -----------------------------------------------------
@@ -59,14 +61,10 @@ gulp.task('guidedog-css', function(){
     }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(minify())
-    .pipe(gulp.dest('./vendor/guidedog/'));
+    .pipe(gulp.dest('./src/css/'));
   // merge compiled guidedog stylus with vendor CSS
-  
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  //vendorCSSDependencies.push('./vendor/guidedog/guidedog.css')
-  //gulp.src(vendorCSSDependencies)
-  gulp.src(['./vendor/guidedog/guidedog.css', './vendor/prism/prism.css'])
-  
+  vendorCSSDependencies.push('./src/css/guidedog.css')
+  gulp.src(vendorCSSDependencies)
     .pipe(concat('guidedog.css'))
     .pipe(minify())
     .pipe(gulp.dest('./dist/'));

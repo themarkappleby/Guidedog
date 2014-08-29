@@ -53,6 +53,14 @@ var Styleguide = function() {
 
   var syntaxHighlight = function(){
     Prism.highlightAll();
+
+    var client = new ZeroClipboard( document.getElementById("copy-button") );
+    client.on( "ready", function( readyEvent ) {
+      client.on( "aftercopy", function( event ) {
+        event.target.style.display = "none";
+        alert("Copied text to clipboard: " + event.data["text/plain"] );
+      });
+    });
   }
 
   // compile jade examples
@@ -69,13 +77,15 @@ var Styleguide = function() {
       stringJade = stringJade.replace(/^\s+|\s+$/g,'')
 
       // convert to html
-      var stringHTML = jade.compile(stringJade)()
+      var stringHTML = jade.compile(stringJade, {
+        pretty: true
+      })()
 
       // render html example
       targetExample.html(stringHTML)
 
       // render html code sample
-      targetHTML.text(style_html(stringHTML))
+      targetHTML.text(stringHTML)
     });
   }
 
