@@ -17,15 +17,16 @@ var vendorJSDependencies = [
   './vendor/jade/jade.js',
   './vendor/markdown/markdown.js',
   './vendor/mustache/mustache.js',
-  './vendor/prism/prism-toolbar.js',
   './vendor/prism/prism.js',
+  './vendor/zeroclipboard/ZeroClipboard.js',
   './vendor/yaml/js-yaml.js',
-  './vendor/zeroclipboard/ZeroClipboard.js'
 ];
-var vendorCSSDependencies = [
-  './vendor/prism/prism-toolbar.css',
+var vendorCSSDependencies = [ 
   './vendor/prism/prism.css'
 ];
+var vendorSWFDependencies = [
+  './vendor/zeroclipboard/ZeroClipboard.swf'
+]
 
 //-- Compile JS -----------------------------------------------------
 gulp.task('guidedog-js', function(){
@@ -42,6 +43,12 @@ gulp.task('example-js', function(){
     .pipe(gulp.dest('./example/js/'));
 });
 
+//-- Move SWFs -----------------------------------------------------
+gulp.task('guidedog-swf', function(){
+  gulp.src(vendorSWFDependencies)
+    .pipe(gulp.dest('./dist/'));
+});
+
 //-- Compile Styles -----------------------------------------------------
 gulp.task('guidedog-css', function(){
   // compile guidedog stylus
@@ -54,8 +61,12 @@ gulp.task('guidedog-css', function(){
     .pipe(minify())
     .pipe(gulp.dest('./vendor/guidedog/'));
   // merge compiled guidedog stylus with vendor CSS
-  vendorCSSDependencies.push('./vendor/guidedog/guidedog.css')
-  gulp.src(vendorCSSDependencies)
+  
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //vendorCSSDependencies.push('./vendor/guidedog/guidedog.css')
+  //gulp.src(vendorCSSDependencies)
+  gulp.src(['./vendor/guidedog/guidedog.css', './vendor/prism/prism.css'])
+  
     .pipe(concat('guidedog.css'))
     .pipe(minify())
     .pipe(gulp.dest('./dist/'));
@@ -112,4 +123,4 @@ gulp.task('watch', function(){
 })
 
 //-- Default Task -----------------------------------------------------
-gulp.task('default', ['example-views', 'example-js', 'example-css', 'guidedog-views', 'guidedog-js', 'guidedog-css', 'watch', 'server']);
+gulp.task('default', ['example-views', 'example-js', 'example-css', 'guidedog-swf', 'guidedog-views', 'guidedog-js', 'guidedog-css', 'watch', 'server']);
