@@ -6,8 +6,22 @@
       {{#title}}<h3 class="sg">{{title}}</h3>{{/title}}
       {{#description}}<span class="sg"> {{{description}}} </span>{{/description}}
       {{#example}}{{{example}}}{{/example}}
-      {{#example}}<pre class="sg"><code>{{example}}</code></pre>{{/example}}
-      {{#jade}}<pre class="sg sg-jade"><code>{{jade}}</code></pre>{{/jade}}
+      {{#example}}<pre class="code-toolbar line-numbers"><code class="language-markup">{{example}}</code></pre>{{/example}}
+      {{#jade}}
+        <div class="sg-jade">
+          <div class="sg-example"></div>
+          <div class="sg-tabs">
+            <ul class="sg-tabs-trigger">
+              <li class="sg-tabs-active">HTML</li>
+              <li>Jade</li>
+            </ul>
+            <ul class="sg-tabs-content">
+              <li class="sg-tabs-active"><pre class="code-toolbar line-numbers"><code class="language-markup"></code></pre></li>
+              <li><pre class="code-toolbar line-numbers"><code class="language-haskell">{{jade}}</code></pre></li>
+            </ul>
+          </div>
+        </div>
+      {{/jade}}
 
       <div class='sg-swatches'>
         {{#swatches}}

@@ -175,3 +175,59 @@ img.sg{
 .sg-swatch-value{
   display: block;
 }
+
+.sg-tabs{
+  margin-top: 15px;
+}
+
+.sg-tabs-trigger{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -1px;
+  text-align: right;
+  padding-right: 25px;
+}
+
+.sg-tabs-trigger li{
+  display: inline-block;
+  padding: 8px 25px;
+  background: #E1E1E1;
+  border-radius: 3px 3px 0 0;
+  border: 1px solid #808080;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.sg-tabs-trigger li.sg-tabs-active{
+  background: white;
+  border-bottom-color: white;
+  cursor: default;
+  font-weight: bold;
+}
+
+.sg-tabs-content{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.sg-tabs-content li{
+  display: none;
+}
+
+.sg-tabs-content pre{
+  margin: 0 !important;
+}
+
+.sg-tabs-content li.sg-tabs-active{
+  display: block;
+  background: white;
+  border-radius: 0 3px 3px 3px;
+  border: 1px solid #808080;
+  overflow: hidden;
+}

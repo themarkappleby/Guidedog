@@ -11,15 +11,17 @@ var Styleguide = function() {
   var load_assets = function(){
     var html = ''
     baseUrl = $('[data-guidedog-path]').attr('src').replace('guidedog.js', '') 
-    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/default.min.css" />'
-    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/googlecode.min.css" />'
     html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/guidedog.css" />'
-    html += '<script type="text/javascript" src="'+baseUrl+'lib/highlight.min.js" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/prism.css" />'
+    html += '<link rel="stylesheet" type="text/css" href="'+baseUrl+'lib/prism-toolbar.css" />'
     html += '<script type="text/javascript" src="'+baseUrl+'lib/js-yaml.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'lib/ZeroClipboard.js" />'
     html += '<script type="text/javascript" src="'+baseUrl+'lib/markdown.js" />'
     html += '<script type="text/javascript" src="'+baseUrl+'lib/beautify-html.js" />'
     html += '<script type="text/javascript" src="'+baseUrl+'lib/jade.js" />'
     html += '<script type="text/javascript" src="'+baseUrl+'lib/mustache.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'lib/prism.js" />'
+    html += '<script type="text/javascript" src="'+baseUrl+'lib/prism-toolbar.js" />'
     $('head').append(html)
   }
 
@@ -54,29 +56,44 @@ var Styleguide = function() {
 
   // pass json data to Mustache template
   var render = function(){
-    $.get(baseUrl+'lib/view.html', function(template) {
-      $('body').html('').append(Mustache.render(template, sg.data))
+    $.get(baseUrl+'lib/template.html', function(template) {
+      $('body').prepend(Mustache.render(template, sg.data))
       compileJade();
-      $('pre code').each(function(i, e) {hljs.highlightBlock(e)})
       $('.guidedog').each(function(){ $(this).css('background', '#'+Math.floor(Math.random()*16777215).toString(16)); });
+      syntaxHighlight();
       updateNav();     
       scrollTo();
+      initTabs();
       $(document).on('scroll', function(){updateNav();});
       $(document).trigger('guidedogReady');
     });
   }
 
+  var syntaxHighlight = function(){
+    Prism.highlightAll();
+  }
+
   // compile jade examples
   var compileJade = function(){
     $('.sg-jade').each(function(){
+      // define targets
       var target = $(this)
-      var code = target.find('code')
-      var string = code.text();
-      string = string.replace(/^\s+|\s+$/g,'')
-      string = jade.compile(string)()
-      target.before('<div />')
-      target.prev().html(string)
-      code.text(style_html(string))
+      var targetJade = target.find('.language-haskell')
+      var targetHTML = target.find('.language-markup')
+      var targetExample = target.find('.sg-example')
+
+      // capture jade
+      var stringJade = targetJade.text();
+      stringJade = stringJade.replace(/^\s+|\s+$/g,'')
+
+      // convert to html
+      var stringHTML = jade.compile(stringJade)()
+
+      // render html example
+      targetExample.html(stringHTML)
+
+      // render html code sample
+      targetHTML.text(style_html(stringHTML))
     });
   }
 
@@ -126,6 +143,18 @@ var Styleguide = function() {
       }
     }
     return true
+  }
+
+  // init sg-tabs
+  var initTabs = function(){
+    $('body').on('click', '.sg-tabs-trigger li', function(){
+      var target = $(this)
+      var root = target.closest('.sg-tabs')
+      var index = target.index();
+      root.find('.sg-tabs-active').removeClass('sg-tabs-active')
+      target.addClass('sg-tabs-active')
+      root.find('.sg-tabs-content li:nth-child('+(index+1)+')').addClass('sg-tabs-active')
+    });
   }
 
   // prep string for YAML parser
