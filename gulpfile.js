@@ -126,7 +126,7 @@ gulp.task('watch', function(){
   gulp.watch('./example/src/js/**/*.js', ['example-js']);
   gulp.watch('./example/src/styl/**/*.styl', ['example-css']);
 
-  gulp.watch('./src/template/guidedog.handlebars', ['guidedog-views']);
+  gulp.watch('./src/template/guidedog.handlebars', ['guidedog-views', 'guidedog-js']);
   gulp.watch('./src/js/guidedog.js', ['guidedog-js']);
   gulp.watch('./src/styl/**/*.styl', ['guidedog-css']);
 })

@@ -36,8 +36,8 @@ Guidedog currently features the following comment types:
 | title       | optional | The name of the specific element (ex. Primary Button)                                        |
 | section     | required | The larger section the element belongs to (ex. Buttons)                                      |
 | description | optional | A [Markdown](http://daringfireball.net/projects/markdown/) parsed description of the element |
-| example     | optional | An HTML example of the element in use                                                        |
-| jade        | optional | A Jade example of the element in use (will render as HTML in Guidedog)                       |
+| html        | optional | An HTML example of the element in use                                                        |
+| jade        | optional | A Jade example of the element in use (will render as both Jade and HTML in Guidedog)         |
 | swatches    | optional | An array of colors and their associated variable names                                       |
 
 ####Example Guidedog comment block
@@ -80,8 +80,8 @@ If you should want to tinker with Guidedog itself, you're more than welcome to. 
 
 - [DONE] swap Mustache for Handlebars 
 - [DONE] precompile Handlebars template
-- rename "example" to "html"
-- re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)
+- [DONE] rename "example" to "html"
 - turn Guidedog into jQuery plugin
+- re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)
 - implement system to support object modifiers (w/ select dropdown)
 - create Guidedog Gulp task for non-client side compilation

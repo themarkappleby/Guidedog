@@ -36,10 +36,10 @@ function program2(depth0,data) {
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.description), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n      ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.example), {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.html), {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n      ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.example), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.html), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n      ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.jade), {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data});
@@ -75,8 +75,8 @@ function program5(depth0,data) {
 function program7(depth0,data) {
   
   var stack1, helper;
-  if (helper = helpers.example) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.example); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if (helper = helpers.html) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.html); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   }
@@ -85,8 +85,8 @@ function program9(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "<pre class=\"line-numbers\"><code class=\"language-markup\">";
-  if (helper = helpers.example) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.example); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if (helper = helpers.html) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.html); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "</code></pre>";
   return buffer;
