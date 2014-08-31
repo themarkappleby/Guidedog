@@ -13,6 +13,7 @@
     "gulp": "^3.8.6",
     "gulp-autoprefixer": "0.0.8",
     "gulp-concat": "^2.3.4",
+    "gulp-handlebars-michael": "^0.1.5",
     "gulp-jade": "^0.7.0",
     "gulp-minify-css": "^0.3.7",
     "gulp-nodemon": "^1.0.4",

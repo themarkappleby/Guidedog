@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     jade = require('gulp-jade'),
     concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
+    handlebars = require('gulp-handlebars-michael'),
     notify = require('gulp-notify');
 
 //-- Vendor Dependencies -----------------------------------------------------
@@ -16,7 +17,7 @@ var vendorJSDependencies = [
   './bower_components/js-beautify/js/lib/beautify-html.js',
   './bower_components/jade/jade.js',
   './bower_components/markdown/lib/markdown.js',
-  './bower_components/mustache/mustache.js',
+  './bower_components/handlebars/handlebars.runtime.js',
   './bower_components/prism/prism.js',
   './bower_components/prism/components/prism-haskell.js',
   './bower_components/prism/plugins/line-numbers/prism-line-numbers.js',
@@ -33,6 +34,7 @@ var vendorSWFDependencies = [
 
 //-- Compile JS -----------------------------------------------------
 gulp.task('guidedog-js', function(){
+  vendorJSDependencies.push('./src/template/guidedog.js');
   vendorJSDependencies.push('./src/js/guidedog.js');
   gulp.src(vendorJSDependencies)
     .pipe(concat('guidedog.min.js'))
@@ -83,8 +85,12 @@ gulp.task('example-css', function(){
 
 //-- Compile Views -----------------------------------------------------
 gulp.task('guidedog-views', function(){
-  gulp.src('./src/html/template.html')
-    .pipe(gulp.dest('./dist/'));
+  gulp.src('./src/template/guidedog.handlebars')
+    .pipe(handlebars())
+    .pipe(rename(function(path) {
+        path.extname = '.js'
+    }))
+    .pipe(gulp.dest('./src/template/'));
 });
 gulp.task('example-views', function(){
   gulp.src('./example/src/jade/index.jade')
@@ -116,7 +122,7 @@ gulp.task('watch', function(){
   gulp.watch('./example/src/js/**/*.js', ['example-js']);
   gulp.watch('./example/src/styl/**/*.styl', ['example-css']);
 
-  gulp.watch('./src/html/template.html', ['guidedog-views']);
+  gulp.watch('./src/template/guidedog.handlebars', ['guidedog-views']);
   gulp.watch('./src/js/guidedog.js', ['guidedog-js']);
   gulp.watch('./src/styl/**/*.styl', ['guidedog-css']);
 })

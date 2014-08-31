@@ -65,3 +65,13 @@ Guidedog allows you to add a custom logo to the top of the navigation section. T
 ###Guidedog Sample Objects
 
 Sometimes it is helpful to have a colour block to quickly and more clearly help convey a concept in a styleguide. Guidedog has a built-in helper for generating random coloured blocks. Simply apply the class `guidedog` to any element in your styleguide.
+
+##Roadmap
+
+- swap Mustache for Handlebars 
+- re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)
+- turn Guidedog into jQuery plugin
+- rename "example" to "html"
+- precompile Handlebars template
+- implement system to support object modifiers (w/ select dropdown)
+- update Readme
