@@ -1,4 +1,5 @@
-function test(){
-  console.log('working');
-}
-test();
+$(document).ready(function(){
+  $('.button').on('click', function(){
+    alert('Button Clicked!');
+  });
+});

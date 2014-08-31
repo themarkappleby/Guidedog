@@ -13,17 +13,26 @@ As awesome as front-end frameworks are, sometimes you just want to roll your own
 
 The recommended way to install Guidedog is via [Bower](http://bower.io/) but Guidedog can also be installed without Bower as well if you prefer (see below). The advantage of installing Guidedog with Bower is the ability to easily be able to pull future Guidedog updates into your project. Plus, Bower is just pretty swell in general.
 
-###Installing Guidedog with Bower
+###Installing Guidedog
 
-1. Fetch the plugin via bower `bower install guidedog`. Note - by default Bower installs components in a folder named bower_components in your project's root. If you'd like to change the default installation location see the [bowerrc documentation](http://bower.io/docs/config/). Ensure that bower installs Guidedog in a location that is publicly accessible.
-1. Create a new blank page/view and add `<script data-guidedog-path='assets/application.css' src='bower_components/guidedog/guidedog.js' type='text/javascript'></script>` replacing `data-guidedog-path` with the path to your concatenated and minified stylesheet.
-1. Visit the new page you just created (if you've already added any Guidedog comments to your stylesheets you should see them here).
+1. Run `bower install guidedog --save` (recommended) OR clone the Guidedog repo and add it to your project.
+1. Add a new page to your project where Guidedog will live. On that page:
+1. Load your project's main CSS file (Guidedog assumes you're concatenating your CSS)
+1. Load jQuery (Guidedog is a jQuery plugin)
+1. Load guidedog.min.js and guidedog.css
+1. Initialize Guidedog. Note your project's javascript file(s) needs to be loaded in Guidedog's callback function to avoid timing conflicts (see below)
+1. Visit the page you just created (if you've already added any Guidedog comments to your stylesheet you should see them here). 
 
-###Installing Guidedog without Bower
-
-1. Download and move the Guidedog folder to a publicly accessible location.
-1. Create a new blank page/view and add `<script data-guidedog-path='assets/application.css' src='your_path_to_guidedog/guidedog.js' type='text/javascript'></script>` replacing `data-guidedog-path` with the path to your concatenated and minified stylesheet.
-1. Visit the new page you just created (if you've already added any Guidedog comments to your stylesheets you should see them here).
+```
+$(document).ready(function(){
+  $('body').guidedog({
+    cssPath: '/css/app.css',
+    logoPath: 'https://dl.dropboxusercontent.com/u/35838577/logo.jpg'
+  }, function(){
+    $('head').append('<script type="text/javascript" src="/js/app.min.js" />')
+  });
+});
+```
 
 ##Working with Guidedog
 
@@ -43,28 +52,20 @@ Guidedog currently features the following comment types:
 ####Example Guidedog comment block
 ```
 /*!!!
- * title: Primary Button
- * section: Buttons
- * description: Primary basic button element (can be an anchor element, button element, or input element)
- * example: <a href="#" class="primary button">Button</a>
- */
+title: Primary Button
+section: Buttons
+description: Primary basic button element (can be an anchor element, button element, or input element)
+example: <a href="#" class="primary button">Button</a>
+*/
 ```
 
 ####Example Guidedog swatches comment block
 ```
 /*!!!
- * section: Colours
- * swatches: [{name: primary, value: "#fef3ea"}, {name: secondary, value: "#6c6da3"}]
- */
+section: Colours
+swatches: [{name: primary, value: "#fef3ea"}, {name: secondary, value: "#6c6da3"}]
+*/
 ```
-
-###Adding a Logo
-
-Guidedog allows you to add a custom logo to the top of the navigation section. To add a custom logo, simply add the `data-logo-path` attribute to the Guidedog script reference with the full path to your logo asset. For example: `<script data-guidedog-path='assets/application.css' data-logo-path='path_to_the_logo.png' src='your_path_to_guidedog/guidedog.js' type='text/javascript'></script>`
-
-###Guidedog Sample Objects
-
-Sometimes it is helpful to have a colour block to quickly and more clearly help convey a concept in a styleguide. Guidedog has a built-in helper for generating random coloured blocks. Simply apply the class `guidedog` to any element in your styleguide.
 
 ##Building Guidedog Yourself
 
@@ -81,7 +82,7 @@ If you should want to tinker with Guidedog itself, you're more than welcome to. 
 - [DONE] swap Mustache for Handlebars 
 - [DONE] precompile Handlebars template
 - [DONE] rename "example" to "html"
-- turn Guidedog into a jQuery plugin
+- [DONE] turn Guidedog into a jQuery plugin
 - re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)
 - implement system to support object modifiers (w/ select dropdown)
 - create Guidedog Gulp task for non-client side compilation
