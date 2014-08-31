@@ -66,6 +66,16 @@ Guidedog allows you to add a custom logo to the top of the navigation section. T
 
 Sometimes it is helpful to have a colour block to quickly and more clearly help convey a concept in a styleguide. Guidedog has a built-in helper for generating random coloured blocks. Simply apply the class `guidedog` to any element in your styleguide.
 
+##Building Guidedog Yourself
+
+If you should want to tinker with Guidedog itself, you're more than welcome to. Please note, these steps are NOT required if you'd simply like to use Guidedog in your project. These steps are only necessary if you'd like to modify the Guidedog core in some capacity.
+
+1. Pull down the Guidedog repo to your local machine
+1. Run `npm install` to install all required Node packages (`sudo` may be required depending on your setup)
+1. Run `bower install` to install all required Bower components
+1. Run `gulp` to start the local webserver
+1. Visit `http://localhost:3000` in your browser
+
 ##Roadmap
 
 - [DONE] swap Mustache for Handlebars 
