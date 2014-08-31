@@ -27,7 +27,7 @@ The recommended way to install Guidedog is via [Bower](http://bower.io/) but Gui
 $(document).ready(function(){
   $('body').guidedog({
     cssPath: '/css/app.css',
-    logoPath: 'https://dl.dropboxusercontent.com/u/35838577/logo.jpg'
+    logoPath: '/img/logo.png'
   }, function(){
     $('head').append('<script type="text/javascript" src="/js/app.min.js" />')
   });
