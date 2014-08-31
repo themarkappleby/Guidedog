@@ -68,10 +68,10 @@ Sometimes it is helpful to have a colour block to quickly and more clearly help 
 
 ##Roadmap
 
-- swap Mustache for Handlebars 
+- [DONE] swap Mustache for Handlebars 
+- [DONE] precompile Handlebars template
+- rename "example" to "html"
 - re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)
 - turn Guidedog into jQuery plugin
-- rename "example" to "html"
-- precompile Handlebars template
 - implement system to support object modifiers (w/ select dropdown)
 - update Readme
