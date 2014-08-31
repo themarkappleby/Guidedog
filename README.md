@@ -27,7 +27,7 @@ The recommended way to install Guidedog is via [Bower](http://bower.io/) but Gui
 
 ##Working with Guidedog
 
-Guidedog works by parsing your CSS file for a specific comment structure. Guidedog first looks for comment blocks wrapped with `/*!!!` and `*/` marks. It then parses the text in these comment blocks as YAML[http://www.yaml.org/]. Guidedog even works when CSS is minified because comments wrapped with `/*!` and `*/` are flagged as important and therefore retained.
+Guidedog works by parsing your CSS file for a specific comment structure. Guidedog first looks for comment blocks wrapped with `/*!!!` and `*/` marks. It then parses the text in these comment blocks as [YAML](http://www.yaml.org/). Guidedog even works when CSS is minified because comments wrapped with `/*!` and `*/` are flagged as important and therefore retained.
 
 Guidedog currently features the following comment types:
 
