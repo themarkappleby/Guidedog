@@ -74,4 +74,4 @@ Sometimes it is helpful to have a colour block to quickly and more clearly help 
 - re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)
 - turn Guidedog into jQuery plugin
 - implement system to support object modifiers (w/ select dropdown)
-- update Readme
+- create Guidedog Gulp task for non-client side compilation
