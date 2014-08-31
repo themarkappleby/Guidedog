@@ -33,8 +33,8 @@ Guidedog currently features the following comment types:
 
 | Name        | Required | Function                                                                                     |
 | ----------- | -------- | -------------------------------------------------------------------------------------------- |
-| title       | optional | The name of the specific element (ex. Primary Button)                                        |
 | section     | required | The larger section the element belongs to (ex. Buttons)                                      |
+| title       | optional | The name of the specific element (ex. Primary Button)                                        |
 | description | optional | A [Markdown](http://daringfireball.net/projects/markdown/) parsed description of the element |
 | html        | optional | An HTML example of the element in use                                                        |
 | jade        | optional | A Jade example of the element in use (will render as both Jade and HTML in Guidedog)         |
