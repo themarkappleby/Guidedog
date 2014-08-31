@@ -81,7 +81,7 @@ If you should want to tinker with Guidedog itself, you're more than welcome to. 
 - [DONE] swap Mustache for Handlebars 
 - [DONE] precompile Handlebars template
 - [DONE] rename "example" to "html"
-- turn Guidedog into jQuery plugin
+- turn Guidedog into a jQuery plugin
 - re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)
 - implement system to support object modifiers (w/ select dropdown)
 - create Guidedog Gulp task for non-client side compilation
