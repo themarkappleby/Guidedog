@@ -37,17 +37,15 @@ var Styleguide = function() {
 
   // pass json data to Mustache template
   var render = function(){
-    $.get(baseUrl+'template.html', function(template) {
-      $('body').html('').prepend(Mustache.render(template, sg.data))
-      compileJade();
-      $('.guidedog').each(function(){ $(this).css('background', '#'+Math.floor(Math.random()*16777215).toString(16)); });
-      syntaxHighlight();
-      updateNav();     
-      scrollTo();
-      initTabs();
-      $(document).on('scroll', function(){updateNav();});
-      $(document).trigger('guidedogReady');
-    });
+    $('body').html('').prepend(Guidedog.templates.guidedog(sg.data, {}));
+    compileJade();
+    $('.guidedog').each(function(){ $(this).css('background', '#'+Math.floor(Math.random()*16777215).toString(16)); });
+    syntaxHighlight();
+    updateNav();     
+    scrollTo();
+    initTabs();
+    $(document).on('scroll', function(){updateNav();});
+    $(document).trigger('guidedogReady');
   }
 
   var syntaxHighlight = function(){

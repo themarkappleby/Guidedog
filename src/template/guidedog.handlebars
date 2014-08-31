@@ -1,3 +1,55 @@
-<div class="foo">
-  Hello world
-</div>
+{{#each sections}}
+  <section class="sg">
+    <a class="sg-target" id="{{id}}" name="{{id}}"></a>
+    <h2 class="sg">{{section}}</h2>
+    {{#each subSections}}
+      {{#if title}}<h3 class="sg">{{title}}</h3>{{/if}}
+      {{#if description}}<span class="sg"> {{{description}}} </span>{{/if}}
+      {{#if example}}{{{example}}}{{/if}}
+      {{#if example}}<pre class="line-numbers"><code class="language-markup">{{example}}</code></pre>{{/if}}
+      {{#if jade}}
+        <div class="sg-jade">
+          <div class="sg-example"></div>
+          <div class="sg-tabs">
+            <ul class="sg-tabs-trigger">
+              <li class="sg-tabs-active">HTML</li>
+              <li>Jade</li>
+            </ul>
+            <ul class="sg-tabs-content">
+              <li class="sg-tabs-active"><pre class="line-numbers"><code class="language-markup"></code></pre></li>
+              <li><pre class="line-numbers"><code class="language-haskell">{{jade}}</code></pre></li>
+            </ul>
+          </div>
+        </div>
+      {{/if}}
+
+      <div class='sg-swatches'>
+        {{#each swatches}}
+        <div class='sg-swatch'>
+          <div class='sg-swatch-sample' style="background-color: {{value}}">
+          </div>
+          <div class='sg-swatch-info'>
+            <span class='sg-swatch-name'>
+              {{name}}
+            </span>
+            <span class='sg-swatch-value'>
+              {{value}}
+            </span>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    {{/each}}
+  </section>
+{{/each}}
+
+<nav class='sg'>
+  {{#if info}}
+    {{#if logo}}
+      <img class='sg' src="{{logo}}" />
+    {{/if}}
+  {{/if}}
+  {{#each sections}}
+    <a href="#{{id}}">{{section}}</a>
+  {{/each}}
+</nav>

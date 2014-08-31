@@ -6,10 +6,12 @@ var gulp = require('gulp'),
     minify = require('gulp-minify-css'),
     uglify = require('gulp-uglify'),
     order = require('gulp-order'),
+    wrap = require('gulp-wrap'),
+    declare = require('gulp-declare'),
     jade = require('gulp-jade'),
     concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
-    handlebars = require('gulp-handlebars-michael'),
+    handlebars = require('gulp-handlebars'),
     notify = require('gulp-notify');
 
 //-- Vendor Dependencies -----------------------------------------------------
@@ -87,8 +89,10 @@ gulp.task('example-css', function(){
 gulp.task('guidedog-views', function(){
   gulp.src('./src/template/guidedog.handlebars')
     .pipe(handlebars())
-    .pipe(rename(function(path) {
-        path.extname = '.js'
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'Guidedog.templates',
+      noRedeclare: true,
     }))
     .pipe(gulp.dest('./src/template/'));
 });
