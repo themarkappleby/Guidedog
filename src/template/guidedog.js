@@ -125,24 +125,13 @@ function program13(depth0,data) {
 function program15(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.logo), {hash:{},inverse:self.noop,fn:self.program(16, program16, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  ";
-  return buffer;
-  }
-function program16(depth0,data) {
-  
-  var buffer = "", stack1, helper;
-  buffer += "\n      <img class='sg' src=\"";
-  if (helper = helpers.logo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.logo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "\" />\n    ";
+  buffer += "\n    <img class='sg' src=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.info)),stack1 == null || stack1 === false ? stack1 : stack1.logo)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" />\n  ";
   return buffer;
   }
 
-function program18(depth0,data) {
+function program17(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "\n    <a href=\"#";
@@ -160,10 +149,10 @@ function program18(depth0,data) {
   stack1 = helpers.each.call(depth0, (depth0 && depth0.sections), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n<nav class='sg'>\n  ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.info), {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data});
+  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.info)),stack1 == null || stack1 === false ? stack1 : stack1.logo), {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n  ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.sections), {hash:{},inverse:self.noop,fn:self.program(18, program18, data),data:data});
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.sections), {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n</nav>\n";
   return buffer;

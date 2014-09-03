@@ -44,10 +44,8 @@
 {{/each}}
 
 <nav class='sg'>
-  {{#if info}}
-    {{#if logo}}
-      <img class='sg' src="{{logo}}" />
-    {{/if}}
+  {{#if info.logo}}
+    <img class='sg' src="{{info.logo}}" />
   {{/if}}
   {{#each sections}}
     <a href="#{{id}}">{{section}}</a>

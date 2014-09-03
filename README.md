@@ -17,7 +17,7 @@ The recommended way to install Guidedog is via [Bower](http://bower.io/) but Gui
 
 1. Run `bower install guidedog --save` (recommended) OR clone the Guidedog repo and add it to your project.
 1. Add a new page to your project where Guidedog will live. On that page:
-1. Load your project's main CSS file (Guidedog assumes you're concatenating your CSS)
+1. Load your project's CSS file(s)
 1. Load jQuery (Guidedog is a jQuery plugin)
 1. Load guidedog.min.js and guidedog.css
 1. Initialize Guidedog. Note your project's javascript file(s) needs to be loaded in Guidedog's callback function to avoid timing conflicts (see below)
@@ -26,13 +26,18 @@ The recommended way to install Guidedog is via [Bower](http://bower.io/) but Gui
 ```
 $(document).ready(function(){
   $('body').guidedog({
-    cssPath: '/css/app.css',
+    cssPaths: ['/css/app.css'],
     logoPath: '/img/logo.png'
   }, function(){
     $('head').append('<script type="text/javascript" src="/js/app.min.js" />')
   });
 });
 ```
+
+| Options  | Required | Description                                                                                                   |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------- |
+| cssPaths | required | An array of string paths to the files you'd like Guidedog to parse. At least one valid path must be provided. |
+| logoPath | optional | A string path to a logo asset. This logo will replace the default Guidedog logo.                              |
 
 ##Working with Guidedog
 

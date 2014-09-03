@@ -2,45 +2,60 @@
   $.fn.guidedog = function(options, callback){
     // default options
     var settings = $.extend({
-      cssPath: '/css/app.css',
-      logoPath: '/img/logo.png'
+      cssPaths: ['/css/app.css'],
+      logoPath: 'http://placehold.it/250x100'
     }, options);
 
-    var gdDOM = this
-    var gd = {}
+    var gdDOM = this          // retains reference to 'this'
+    var gd = {}               // stores info to be passed to handlebars template
+    var combinedResponse = '' // store all of the raw content to be parsed
+    var crawlTotal = settings.cssPaths.length - 1
     gd.data = {}
+    gd.data.info = {} 
     gd.data.sections = []
-    gd.data.info = []
 
-    // extract styleguide comments from stylesheet
+    // root initializer
     var init = function(){
-      // wait for CSS resource to load before parsing
-      $.when($.get(settings.cssPath)).done(function(response) {
-        console.log(response)
-        var expression = /\/\*\!\!([\s\S]*?)\*\//mg
-        while ((match = expression.exec(response)) != null){
-          if(match[1].substring(0,1) == '!'){
-            match[1] = match[1].substring(1)
-          }
-          match = jsyaml.load(scrub_comments(match[1]))
-          if(match.description) match.description = markdown.toHTML(match.description)
-          if (new_section(match.section)){
-            var section = match.section
-            if(!match.section) match.section = 'Undefined'
-            gd.data.sections.push({
-              "section": match.section, 
-              "id": match.section.replace(/\s+/g, '').toLowerCase(), 
-              "subSections": []
-            })
-          }
-          var index = sectionIndex(match.section)
-          gd.data.sections[index].subSections.push(match)
+      fetch(0)
+    }()
+
+    // crawl through and combine all cssPaths' contents
+    function fetch(crawlCnt){
+      $.when($.get(settings.cssPaths[crawlCnt])).done(function(response) {
+        combinedResponse += response
+        if (crawlCnt === crawlTotal){
+          parse()
         }
-        gd.data.info.push({"logo": settings.logoPath});
-        render()
+        else{
+          fetch(crawlCnt + 1)
+        }
       })
     }
-    init();
+
+    // parse all of the raw content
+    var parse = function(){
+      var expression = /\/\*\!\!([\s\S]*?)\*\//mg
+      while ((match = expression.exec(combinedResponse)) != null){
+        if(match[1].substring(0,1) == '!'){
+          match[1] = match[1].substring(1)
+        }
+        match = jsyaml.load(scrub_comments(match[1]))
+        if(match.description) match.description = markdown.toHTML(match.description)
+        if (new_section(match.section)){
+          var section = match.section
+          if(!match.section) match.section = 'Undefined'
+          gd.data.sections.push({
+            "section": match.section, 
+            "id": match.section.replace(/\s+/g, '').toLowerCase(), 
+            "subSections": []
+          })
+        }
+        var index = sectionIndex(match.section)
+        gd.data.sections[index].subSections.push(match)
+      }
+      gd.data.info.logo = settings.logoPath;
+      render()
+    }
 
     // pass json data to Mustache template
     var render = function(){
