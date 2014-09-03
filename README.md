@@ -75,7 +75,7 @@ If you should want to tinker with Guidedog itself, you're more than welcome to. 
 1. Run `npm install` to install all required Node packages (`sudo` may be required depending on your setup)
 1. Run `bower install` to install all required Bower components
 1. Run `gulp` to start the local webserver
-1. Visit `http://localhost:3000` in your browser
+1. Visit `http://guidedog.dev` in your browser
 
 ##Roadmap
 
