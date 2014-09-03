@@ -16,6 +16,7 @@
     var init = function(){
       // wait for CSS resource to load before parsing
       $.when($.get(settings.cssPath)).done(function(response) {
+        console.log(response)
         var expression = /\/\*\!\!([\s\S]*?)\*\//mg
         while ((match = expression.exec(response)) != null){
           if(match[1].substring(0,1) == '!'){

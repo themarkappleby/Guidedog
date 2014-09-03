@@ -2,7 +2,6 @@
 var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     rename = require('gulp-rename'),
-    stylus = require('gulp-stylus'),
     minify = require('gulp-minify-css'),
     uglify = require('gulp-uglify'),
     order = require('gulp-order'),
@@ -12,6 +11,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
     handlebars = require('gulp-handlebars'),
+    less = require('gulp-less'),
+    stylus = require('gulp-stylus'),
     notify = require('gulp-notify');
 
 //-- Vendor Dependencies -----------------------------------------------------
@@ -75,10 +76,19 @@ gulp.task('guidedog-css', function(){
     .pipe(gulp.dest('./dist/'));
 });
 gulp.task('example-css', function(){
-  gulp.src('./example/src/styl/**/*.styl')
+  gulp.src('./example/src/styl/styl.styl')
     .pipe(stylus())
     .on("error", notify.onError(function (error) {
       return "Stylus error: " + error.message;
+    }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(minify())
+    .pipe(gulp.dest('./example/build/css/'));
+
+  gulp.src('./example/src/less/less.less')
+    .pipe(less())
+    .on("error", notify.onError(function (error) {
+      return "Less error: " + error.message;
     }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(minify())
@@ -124,7 +134,10 @@ gulp.task('server', function() {
 gulp.task('watch', function(){
   gulp.watch('./example/src/jade/index.jade', ['example-views']);
   gulp.watch('./example/src/js/**/*.js', ['example-js']);
-  gulp.watch('./example/src/styl/**/*.styl', ['example-css']);
+  gulp.watch([
+    './example/src/styl/**/*.styl',
+    './example/src/less/**/*.less'
+  ], ['example-css']);
 
   gulp.watch('./src/template/guidedog.handlebars', ['guidedog-views', 'guidedog-js']);
   gulp.watch('./src/js/guidedog.js', ['guidedog-js']);
