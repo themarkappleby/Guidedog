@@ -47,7 +47,7 @@ gulp.task('example-js', function(){
   gulp.src('./example/src/js/**/*.js')
     .pipe(concat('app.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('./example/js/'));
+    .pipe(gulp.dest('./example/build/js/'));
 });
 
 //-- Move SWFs -----------------------------------------------------
@@ -82,7 +82,7 @@ gulp.task('example-css', function(){
     }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(minify())
-    .pipe(gulp.dest('./example/css/'));
+    .pipe(gulp.dest('./example/build/css/'));
 });
 
 //-- Compile Views -----------------------------------------------------
@@ -104,7 +104,7 @@ gulp.task('example-views', function(){
     .on("error", notify.onError(function (error) {
       return "Jade error: " + error.message;
     }))
-    .pipe(gulp.dest('./example/'));
+    .pipe(gulp.dest('./example/build/'));
 });
 
 //-- Start local server -----------------------------------------------------

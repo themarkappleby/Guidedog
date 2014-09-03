@@ -8,7 +8,7 @@ var port = process.env.PORT || 3000
 var server = connect()
 
 server.use('/dist', serveStatic(path.join(__dirname, '/dist')))
-server.use(serveStatic(__dirname+'/example'))
+server.use(serveStatic(__dirname+'/example/build'))
 server.listen(port)
 
 console.log('Listening on port', port)

@@ -83,6 +83,9 @@ If you should want to tinker with Guidedog itself, you're more than welcome to. 
 - [DONE] ~~precompile Handlebars template~~
 - [DONE] ~~rename "example" to "html"~~
 - [DONE] ~~turn Guidedog into a jQuery plugin~~
+- add Less.js, Sass, Scss, and plain CSS examples
+- add support for custom colour schemes (pass primary/secondary colours to initializer)
 - re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)
+- pass an array of stylesheets to the Guidedog initializer
 - implement system to support object modifiers (w/ select dropdown)
 - create Guidedog Gulp task for non-client side compilation
