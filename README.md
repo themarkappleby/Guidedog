@@ -72,6 +72,10 @@ swatches: [{name: primary, value: "#fef3ea"}, {name: secondary, value: "#6c6da3"
 */
 ```
 
+####Expanding Lorem Ipsum
+
+Guidedog has a handy lorem ipsum expanding feature for quickly including blocks of lorem ipsum text in your examples. To include a sentence of lorem ipsum, simply use the key word format `loremX`. Guidedog will look for all instances of `loremX` and replace each with lorem ipsum text. `X` represents the number of sentences of lorem ipsum you want to insert. For example, for two senteces of lorem ipsum you would type `lorem2`.
+
 ##Building Guidedog Yourself
 
 If you should want to tinker with Guidedog itself, you're more than welcome to. Please note, these steps are NOT required if you'd simply like to use Guidedog in your project. These steps are only necessary if you'd like to modify the Guidedog core in some capacity.
@@ -90,6 +94,7 @@ If you should want to tinker with Guidedog itself, you're more than welcome to. 
 - [DONE] ~~turn Guidedog into a jQuery plugin~~
 - [DONE] ~~pass an array of stylesheets to the Guidedog initializer~~
 - [DONE] ~~hash support and go to hash on load~~ 
+- [DONE] ~~expand lorem ipsum~~
 - add Less.js, Sass, Scss, and plain CSS examples
 - add support for custom colour schemes (pass primary/secondary colours to initializer)
 - re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)

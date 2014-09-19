@@ -36,9 +36,11 @@
     var parse = function(){
       var expression = /\/\*\!\!([\s\S]*?)\*\//mg
       while ((match = expression.exec(combinedResponse)) != null){
+        // work with !!! or !! (Less.js support)
         if(match[1].substring(0,1) == '!'){
           match[1] = match[1].substring(1)
         }
+        match[1] = lorem(match[1]);
         match = jsyaml.load(scrub_comments(match[1]))
         if(match.description) match.description = markdown.toHTML(match.description)
         if (new_section(match.section)){
@@ -57,6 +59,38 @@
       render()
     }
 
+    // expand lorem ipsum
+    var lorem = function(str){
+      var words = ['lorem','ipsum','dolor','sit','amet','consectetuer','adipiscing','elit','sed','diam','nonummy','nibh','euismod', 'tincidunt','ut','laoreet']
+      var wordsCnt = words.length-1;
+      var expression = /lorem[^\s]+/g
+      return str.replace(expression, function(cnt, index){
+        cnt = parseInt(cnt.replace('lorem', ''))
+        var paragraph = ''
+        for(var b=1; b<=cnt; b++){
+          var sentence = ''
+          var sentenceLength = rand(12,16);
+          for(var i=0; i<=sentenceLength; i++){
+            sentence += ' ' + words[rand(0, wordsCnt)]  
+            if(i==0){
+              sentence = sentence.substr(1)
+              sentence = sentence.charAt(0).toUpperCase() + sentence.slice(1)
+            }
+            else if(i==sentenceLength){
+              sentence += '. '
+              paragraph += sentence
+            }
+          }
+        }
+        return paragraph;
+      });
+    }
+
+    // return a random int within a range
+    var rand = function(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     // pass json data to Mustache template
     var render = function(){
       gdDOM.html('').prepend(Guidedog.templates.guidedog(gd.data, {}));
@@ -70,10 +104,9 @@
       if (typeof callback == 'function') {
         callback.call(gdDOM);
       }
-      if(window.location.hash != ''){
-        // bug causing this not to work in Chrome
-        // scrollTo(window.location.hash, 0);
-        scrollTo(window.location.hash, 1000);
+      if(window.location.hash){
+        // bug causing this not to work properly in Chrome
+        scrollTo(window.location.hash, 0);
       }
     }
 
@@ -144,9 +177,11 @@
 
     // scrollTo nav items
     var scrollTo = function(target, speed){
-        $('html,body').animate({
-          scrollTop: $(target).offset().top - 30
-        }, speed);
+        if($(target)[0]){
+          $('html,body').animate({
+            scrollTop: $(target).offset().top - 30
+          }, speed);
+        }
     }
 
     // fetch the index of a section
