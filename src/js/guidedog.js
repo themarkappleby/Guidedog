@@ -65,11 +65,15 @@
       syntaxHighlight();
       updateNav();     
       scrollToClick();
-      scrollTo(window.location.hash, 0);
       initTabs();
       $(document).on('scroll', function(){updateNav();});
       if (typeof callback == 'function') {
         callback.call(gdDOM);
+      }
+      if(window.location.hash != ''){
+        // bug causing this not to work in Chrome
+        // scrollTo(window.location.hash, 0);
+        scrollTo(window.location.hash, 1000);
       }
     }
 
@@ -140,7 +144,7 @@
 
     // scrollTo nav items
     var scrollTo = function(target, speed){
-        $('html, body').animate({
+        $('html,body').animate({
           scrollTop: $(target).offset().top - 30
         }, speed);
     }
