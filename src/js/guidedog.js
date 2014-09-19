@@ -64,7 +64,8 @@
       $('.guidedog').each(function(){ $(this).css('background', '#'+Math.floor(Math.random()*16777215).toString(16)); });
       syntaxHighlight();
       updateNav();     
-      scrollTo();
+      scrollToClick();
+      scrollTo(window.location.hash, 0);
       initTabs();
       $(document).on('scroll', function(){updateNav();});
       if (typeof callback == 'function') {
@@ -128,14 +129,20 @@
       });
     }
 
-    // scrollto nav items
-    var scrollTo = function(){
+    // scrollToClick nav items
+    var scrollToClick = function(){
       $('nav.sg').on('click', 'a', function(e){
         e.preventDefault();
-        $('html, body').animate({
-          scrollTop: $($(this).attr('href')).offset().top - 30
-        }, 1000);
+        window.history.pushState('', '', $(this).attr('href'));
+        scrollTo($(this).attr('href'), 1000);
       });
+    }
+
+    // scrollTo nav items
+    var scrollTo = function(target, speed){
+        $('html, body').animate({
+          scrollTop: $(target).offset().top - 30
+        }, speed);
     }
 
     // fetch the index of a section
