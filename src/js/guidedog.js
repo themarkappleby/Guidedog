@@ -113,13 +113,6 @@
     // syntax highlight markup
     var syntaxHighlight = function(){
       Prism.highlightAll();
-      var client = new ZeroClipboard( document.getElementById("copy-button") );
-      client.on( "ready", function( readyEvent ) {
-        client.on( "aftercopy", function( event ) {
-          event.target.style.display = "none";
-          alert("Copied text to clipboard: " + event.data["text/plain"] );
-        });
-      });
     }
 
     // compile jade examples

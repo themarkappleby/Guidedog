@@ -24,16 +24,12 @@ var vendorJSDependencies = [
   './bower_components/prism/prism.js',
   './bower_components/prism/components/prism-haskell.js',
   './bower_components/prism/plugins/line-numbers/prism-line-numbers.js',
-  './bower_components/zeroclipboard/dist/ZeroClipboard.js',
   './bower_components/js-yaml/dist/js-yaml.js'
 ];
 var vendorCSSDependencies = [ 
   './bower_components/prism/themes/prism-coy.css',
   './bower_components/prism/plugins/line-numbers/prism-line-numbers.css'
 ];
-var vendorSWFDependencies = [
-  './bower_components/zeroclipboard/dist/ZeroClipboard.swf'
-]
 
 //-- Compile JS -----------------------------------------------------
 gulp.task('guidedog-js', function(){
@@ -49,12 +45,6 @@ gulp.task('example-js', function(){
     .pipe(concat('app.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./example/build/js/'));
-});
-
-//-- Move SWFs -----------------------------------------------------
-gulp.task('guidedog-swf', function(){
-  gulp.src(vendorSWFDependencies)
-    .pipe(gulp.dest('./dist/'));
 });
 
 //-- Compile Styles -----------------------------------------------------
@@ -145,4 +135,4 @@ gulp.task('watch', function(){
 })
 
 //-- Default Task -----------------------------------------------------
-gulp.task('default', ['example-views', 'example-js', 'example-css', 'guidedog-swf', 'guidedog-views', 'guidedog-js', 'guidedog-css', 'watch', 'server']);
+gulp.task('default', ['example-views', 'example-js', 'example-css', 'guidedog-views', 'guidedog-js', 'guidedog-css', 'watch', 'server']);
