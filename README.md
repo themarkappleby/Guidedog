@@ -97,7 +97,6 @@ If you should want to tinker with Guidedog itself, you're more than welcome to. 
 - [DONE] ~~expand lorem ipsum~~
 - clean-up and compartmentalize js
 - add CSS/Stylus code display support
-- support colons in markdown descriptions
 - add Less.js, Sass, Scss, and plain CSS examples
 - add support for custom colour schemes (pass primary/secondary colours to initializer)
 - re-write Guidedog stylesheet (use .gd- instead of .sg- prefixes)

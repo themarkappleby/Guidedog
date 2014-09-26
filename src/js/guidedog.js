@@ -41,7 +41,11 @@
           match[1] = match[1].substring(1)
         }
         match[1] = lorem(match[1]);
-        match = jsyaml.load(scrub_comments(match[1]))
+
+        console.log(match[1]);
+        match = jsyaml.load(match[1])
+        console.log(match);
+
         if(match.description) match.description = markdown.toHTML(match.description)
         if (new_section(match.section)){
           var section = match.section
@@ -207,12 +211,6 @@
         target.addClass('sg-tabs-active')
         root.find('.sg-tabs-content li:nth-child('+(index+1)+')').addClass('sg-tabs-active')
       });
-    }
-
-    // prep string for YAML parser
-    var scrub_comments = function(match){
-      match = match.replace(/\ *\*\ /g, '')
-      return match
     }
   }
 }(jQuery));
