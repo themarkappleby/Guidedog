@@ -1,0 +1,38 @@
+{
+  "author": "Mark Appleby",
+  "name": "guidedog",
+  "description": "Parse front-end styles and generate a styleguide.",
+  "version": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/themarkappleby/guidedog.git"
+  },
+  "main": "./lib/guidedog",
+  "keywords": [
+    "styleguide",
+    "css",
+    "docs"
+  ],
+  "bin": {
+    "guidedog": "./bin/guidedog"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/themarkappleby/guidedog/issues"
+  },
+  "homepage": "https://github.com/themarkappleby/guidedog",
+  "devDependencies": {
+    "handlebars": "^2.0.0",
+    "he": "^0.5.0",
+    "html2jade": "^0.8.1",
+    "js-yaml": "^3.2.5",
+    "jsdom-little": "^0.10.5",
+    "micromarkdown": "^0.3.1"
+  }
+}

@@ -1,0 +1,20 @@
+/*gd
+	name: Card
+	section: Objects
+	description: Foo bar blah
+	multi: |
+		#hello
+		###world
+*/
+.card{
+	padding: 20px;
+	border: 1px solid #ccc;
+	background: white;
+	border-radius: 3px;
+}
+
+/*gd
+	name: Widget
+	section: Objects
+	description: This is a sweet widget
+*/
