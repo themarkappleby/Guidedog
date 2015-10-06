@@ -60,7 +60,7 @@ Guidedog currently features the following comment types:
 title: Primary Button
 section: Buttons
 description: Primary basic button element (can be an anchor element, button element, or input element)
-example: <a href="#" class="primary button">Button</a>
+html: <a href="#" class="primary button">Button</a>
 */
 ```
 
